@@ -43,6 +43,7 @@ jobs:
 
       - name: Build Docker image
         run: |
+          docker --version
           docker build -t java-app-test:${{ github.sha }} .
 
       - name: Stop Existing Container
