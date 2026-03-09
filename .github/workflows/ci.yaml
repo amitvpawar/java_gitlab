@@ -40,3 +40,20 @@ jobs:
         with:
           name: java-app
           path: target/*.jar
+
+      - name: Build Docker image
+        run: |
+          docker build -t java-app-test:${{ github.sha }} .
+
+      - name: Stop Existing Container
+        run: |
+          if docker ps -q --filter "publish=8787" | grep -q .; then
+            echo "Stopping container running on port 8787"
+            docker ps -q --filter "publish=8787" | xargs -r docker rm -f
+          else
+            echo "No container running on port 8787"
+          fi
+
+      - name:
+        run: |
+          docker run -d -p 8787:8787 --name test-jva-${{ github.sha }} java-app-test:${{ github.sha }}
