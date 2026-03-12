@@ -40,26 +40,3 @@ jobs:
         with:
           name: java-app
           path: target/*.jar
-
-      - name: Set short SHA
-        id: vars
-        run: echo "SHORT_SHA=${GITHUB_SHA::7}" >> $GITHUB_ENV
-          
-      - name: Build Docker image
-        run: |
-          docker --version
-          SHORT_SHA=$(echo ${{ github.sha }} | cut -c1-7)
-          docker build -t java-app-test:$SHORT_SHA .
-
-      - name: Stop Existing Container
-        run: |
-          if docker ps -q --filter "publish=8787" | grep -q .; then
-            echo "Stopping container running on port 8787"
-            docker ps -q --filter "publish=8787" | xargs -r docker rm -f
-          else
-            echo "No container running on port 8787"
-          fi
-
-      - name:
-        run: |
-          docker run -d -p 8787:8787 --name test-jva-$SHORT_SHA java-app-test:$SHORT_SHA
