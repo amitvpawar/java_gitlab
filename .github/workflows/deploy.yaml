@@ -1,10 +1,11 @@
 name: Deploy to UAT
 
 on:
-  push:
-    branches:
-      - main
-      - develop
+  workflow_run:
+    workflows: ["Build jobs"]
+    types:
+      - completed
+      
 jobs:
   deploy:
     runs-on: test

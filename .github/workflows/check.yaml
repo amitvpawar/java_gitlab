@@ -1,19 +1,22 @@
 name: check
 on:
-  push:
-    branches:
-      - main
-      - develop
+  workflow_run:
+    workflows: ["Deploy to UAT"]
+    types:
+      - completed
+
 jobs:
-  check:
+  verify:
     runs-on: test
 
-    steps: |
-        sleep 5
-        if docker ps -q --filter "publish=8787" | grep -q .; then
-          CON_ID=$(docker ps -q --filter "publish=8787")
-          echo "Container : $CON_ID is running"
-        else
-          echo "Check deployment : NO CONTAINER DEPLOYED"
-          exit 1
-        fi
+    steps:
+     - name: 
+       run: |
+          sleep 5
+          if docker ps -q --filter "publish=8787" | grep -q .; then
+            CON_ID=$(docker ps -q --filter "publish=8787")
+            echo "Container : $CON_ID is running"
+          else
+            echo "Check deployment : NO CONTAINER DEPLOYED"
+            exit 1
+          fi

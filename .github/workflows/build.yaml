@@ -1,9 +1,9 @@
-name: Buil jobs
+name: Build jobs
 on:
-  push:
-    branches:
-      - main
-      - develop
+  workflow_run:
+    workflows: ["Java CI"]
+    types:
+      - completed
 
 jobs:
   build:
