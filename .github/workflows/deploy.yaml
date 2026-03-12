@@ -2,7 +2,7 @@ name: Deploy to UAT
 
 on:
   workflow_run:
-    workflows: ["Build jobs"]
+    workflows: ["Push"]
     types:
       - completed
 

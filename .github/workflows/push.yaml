@@ -1,0 +1,25 @@
+name: Push 
+
+on:
+  workflow_run:
+    workflows: ["Build jobs"]
+    types:
+      - completed
+
+jobs:
+  push_image:
+    runs-on: test
+  if: ${{ github.event.workflow_run.conclusion == 'success' }}
+
+  steps:
+    - name: Login to gitlab registry
+      run: |
+        echo "${{ secrets.REGISTRY_TOKEN }}" | docker login registry.mygitlab.example.com -u "${{ vars.REGISTRY_USER }}" --password-stdin
+    
+    - name: Set short SHA
+      id: vars
+      run: echo "SHORT_SHA=${GITHUB_SHA::7}" >> $GITHUB_ENV
+
+    - name: Push image on GitLab registry
+      run: |
+        docker push java-app-test:$SHORT_SHA
