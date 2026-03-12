@@ -9,7 +9,7 @@ on:
 jobs:
   push_image:
     runs-on: test
-  if: ${{ github.event.workflow_run.conclusion == 'success' }}
+  #if: ${{ github.event.workflow_run.conclusion == 'success' }}
 
   steps:
     - name: Login to gitlab registry
