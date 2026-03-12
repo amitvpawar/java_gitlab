@@ -22,4 +22,4 @@ jobs:
 
       - name: Push image on GitLab registry
         run: |
-          docker push registry.mygitlab.example.com/java-app-test:$SHORT_SHA
+          docker push registry.mygitlab.example.com/root/java:$SHORT_SHA

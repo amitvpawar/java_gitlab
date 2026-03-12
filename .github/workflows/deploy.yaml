@@ -30,4 +30,4 @@ jobs:
 
       - name:
         run: |
-          docker run -d -p 8787:8787 --name test-java-$SHORT_SHA registry.mygitlab.example.com/java-app-test:$SHORT_SHA
+          docker run -d -p 8787:8787 --name test-java-$SHORT_SHA registry.mygitlab.example.com/root/java:$SHORT_SHA
