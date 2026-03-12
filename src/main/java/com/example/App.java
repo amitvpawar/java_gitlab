@@ -15,7 +15,7 @@ public class App {
 
     @GetMapping("/")
     public String hello() {
-        return "Hello World from Amit by deleting old container with CICD for STAGING env";
+        return "Hello World from Amit by deleting old container with CICD for STAGING env from GitHub Actions";
     }
 }
 

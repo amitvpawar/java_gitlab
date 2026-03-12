@@ -18,4 +18,4 @@ jobs:
         run: |
           docker --version
           SHORT_SHA=$(echo ${{ github.sha }} | cut -c1-7)
-          docker build -t java-app-test:$SHORT_SHA .
+          docker build -t registry.mygitlab.example.com/java-app-test:$SHORT_SHA .
